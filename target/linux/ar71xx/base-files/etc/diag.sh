@@ -48,6 +48,9 @@ get_status_led() {
 	ap96)
 		status_led="ap96:green:led2"
 		;;
+	arbor)
+		status_led="arbor:white:sys"
+		;;
 	aw-nr580)
 		status_led="aw-nr580:green:ready"
 		;;

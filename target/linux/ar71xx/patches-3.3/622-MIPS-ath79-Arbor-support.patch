@@ -1,0 +1,40 @@
+--- a/arch/mips/ath79/Kconfig
++++ b/arch/mips/ath79/Kconfig
+@@ -660,6 +660,17 @@ config ATH79_MACH_Yun
+ 	help
+ 	  Say 'Y' here if you want your kernel to support the
+ 	  Arduino Yun.
++
++config ATH79_MACH_ARBOR
++	bool "Arbor IO Linux Shield"
++	select SOC_AR933X
++	select ATH79_DEV_ETH
++	select ATH79_DEV_GPIO_BUTTONS
++	select ATH79_DEV_LEDS_GPIO
++	select ATH79_DEV_M25P80
++	select ATH79_DEV_USB
++	select ATH79_DEV_WMAC
++
+ endmenu
+ 
+ config SOC_AR71XX
+--- a/arch/mips/ath79/Makefile
++++ b/arch/mips/ath79/Makefile
+@@ -48,6 +48,7 @@ obj-$(CONFIG_ATH79_MACH_AP136)		+= mach-
+ obj-$(CONFIG_ATH79_MACH_AP81)		+= mach-ap81.o
+ obj-$(CONFIG_ATH79_MACH_AP83)		+= mach-ap83.o
+ obj-$(CONFIG_ATH79_MACH_AP96)		+= mach-ap96.o
++obj-$(CONFIG_ATH79_MACH_ARBOR)		+= mach-arbor.o
+ obj-$(CONFIG_ATH79_MACH_AW_NR580)	+= mach-aw-nr580.o
+ obj-$(CONFIG_ATH79_MACH_CAP4200AG)	+= mach-cap4200ag.o
+ obj-$(CONFIG_ATH79_MACH_DB120)		+= mach-db120.o
+--- a/arch/mips/ath79/machtypes.h
++++ b/arch/mips/ath79/machtypes.h
+@@ -28,6 +28,7 @@ enum ath79_mach_type {
+ 	ATH79_MACH_AP81,		/* Atheros AP81 reference board */
+ 	ATH79_MACH_AP83,		/* Atheros AP83 */
+ 	ATH79_MACH_AP96,		/* Atheros AP96 */
++	ATH79_MACH_ARBOR,		/* Arbor IO Linux Shield */
+ 	ATH79_MACH_AW_NR580,		/* AzureWave AW-NR580 */
+ 	ATH79_MACH_CAP4200AG,		/* Senao CAP4200AG */
+ 	ATH79_MACH_DB120,		/* Atheros DB120 reference board */

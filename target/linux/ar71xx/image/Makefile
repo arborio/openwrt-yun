@@ -156,7 +156,7 @@ define Build/Clean
 	$(LOADER_MAKE) clean
 endef
 
-
+arbor_mtdlayout=mtdparts=spi0.0:256k(u-boot)ro,64k(u-boot-env)ro,14656k(rootfs),1280k(kernel),64k(nvram),64k(art),15936k@0x50000(firmware)
 yun_mtdlayout_8M=mtdparts=spi0.0:256k(u-boot)ro,64k(u-boot-env)ro,6464k(rootfs),1280k(kernel),64k(nvram),64k(art),7744k@0x50000(firmware)
 yun_mtdlayout_16M=mtdparts=spi0.0:256k(u-boot)ro,64k(u-boot-env)ro,14656k(rootfs),1280k(kernel),64k(nvram),64k(art),15936k@0x50000(firmware)
 alfa_ap96_mtdlayout=mtdparts=spi0.0:256k(u-boot)ro,256k(u-boot-env)ro,13312k(rootfs),2048k(kernel),512k(caldata)ro,15360k@0x80000(firmware)
@@ -792,6 +792,17 @@ endef
 define Image/Build/YunLzma/initramfs
 	$(call MkuImageLzma/initramfs,$(2),$(3) $(4))
 endef
+
+define Image/Build/ArborLzma
+	$(call MkuImageLzma,$(2),$(3) $(4))
+	$(call Image/Build/Ath,$(1),$(2),$(3),$(4),$(5),$(6),$(7))
+endef
+
+define Image/Build/ArborLzma/initramfs
+	$(call MkuImageLzma/initramfs,$(2),$(3) $(4))
+endef
+
+$(eval $(call SingleProfile,ArborLzma,$(fs_64k),ARBOR,arbor,ARBOR,ttyATH0,115200,$$(arbor_mtdlayout),1310720,15007744,RKuImage))
 
 $(eval $(call SingleProfile,YunLzma,$(fs_64k),YUN_8M,yun-8M,Yun,ttyATH0,250000,$$(yun_mtdlayout_8M),1310720,6619136,RKuImage))
 $(eval $(call SingleProfile,YunLzma,$(fs_64k),YUN_16M,yun-16M,Yun,ttyATH0,250000,$$(yun_mtdlayout_16M),1310720,15007744,RKuImage))
